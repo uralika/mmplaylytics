@@ -10,12 +10,14 @@ function addTrackToPlayList() {
     updateTrackStats();
   });
 };
+
 function updateTrackStats() {
   addUpTracks();
   calcCoolFactor();
   totalPlaylistTime();
   updateLocalStorage();
-}
+};
+
 function updateLocalStorage() {
   var playListName = $('.title h1.playlist .playlist-name').text(),
       playListSongData = $(".playlist ol").html(),
@@ -44,7 +46,7 @@ function getItemsFromStorage() {
     $('.tags span').text(localStorage['playListTags']);
   }
   changePlayListName();
-}
+};
 
 function addUpTracks() {
   var totalTracksInput = $('#total-tracks');
@@ -88,8 +90,6 @@ function deleteTrack() {
   $(this).closest('li').remove();
   updateTrackStats();
 };
-
-
 
 function autoCompleteDisplay(results) {
   results.forEach(function(result){
@@ -157,51 +157,47 @@ function convertToMS(time) {
 }
 
 function sortByName() {
-  $('.icon-track').on('click',function(){
-    var ol = $(this).closest('.icons').nextAll('.songs:visible').first().find('ol'),
-        li = ol.children("li");
-    li.detach().sort(function(a, b) {
-      var a = $(a).find('.song-title').text().substring(1),
-           b = $(b).find('.song-title').text().substring(1);
-      if (a > b) return 1;
-      if (b > a) return -1;
-      return 0;
-    });
-    ol.append(li);
-    updateLocalStorage();
+  var ol = $(this).closest('.icons').nextAll('.songs:visible').first().find('ol'),
+      li = ol.children("li");
+  li.detach().sort(function(a, b) {
+    var a = $(a).find('.song-title').text().substring(1),
+         b = $(b).find('.song-title').text().substring(1);
+    if (a > b) return 1;
+    if (b > a) return -1;
+    return 0;
   });
+  ol.append(li);
+  updateLocalStorage();
+
 };
 
 function sortByPopularity(){
-  $('.icon-cool').on('click',function(){
-    var ol = $(this).closest('.icons').nextAll('.songs:visible').first().find('ol'),
-        li = ol.children("li");
-    li.detach().sort(function(a, b){
-      var a = parseInt($(a).find('.song-popularity').html()),
-          b = parseInt($(b).find('.song-popularity').html());
-      if (a > b) return -1;
-      if (b > a) return 1;
-      return 0;
-    });
-    ol.append(li);
-    updateLocalStorage();
+  var ol = $(this).closest('.icons').nextAll('.songs:visible').first().find('ol'),
+      li = ol.children("li");
+  li.detach().sort(function(a, b){
+    var a = parseInt($(a).find('.song-popularity').html()),
+        b = parseInt($(b).find('.song-popularity').html());
+    if (a > b) return -1;
+    if (b > a) return 1;
+    return 0;
   });
+  ol.append(li);
+  updateLocalStorage();
 };
 
 function sortByDuration() {
-  $('.icon-clock').on('click',function(){
-    var ol = $(this).closest('.icons').nextAll('.songs:visible').first().find('ol'),
-        li = ol.children('li');
-    li.detach().sort(function(a, b){
-      var a = convertToMS($(a).find('.song-duration').text()),
-          b = convertToMS($(b).find('.song-duration').text());
-      if (a > b) return -1;
-      if (b > a) return 1;
-      return 0;
-    });
-    ol.append(li);
-    updateLocalStorage();
+  var ol = $(this).closest('.icons').nextAll('.songs:visible').first().find('ol'),
+      li = ol.children('li');
+
+  li.detach().sort(function(a, b){
+    var a = convertToMS($(a).find('.song-duration').text()),
+        b = convertToMS($(b).find('.song-duration').text());
+    if (a > b) return -1;
+    if (b > a) return 1;
+    return 0;
   });
+  ol.append(li);
+  updateLocalStorage();
 };
 
 function changePlayListName(name){
@@ -274,6 +270,9 @@ function attachEventListeners(){
   });
 
   $('input.search').on('keyup', autoComplete);
+  $('.icon-clock').on("click", sortByDuration);
+  $('.icon-cool').on("click", sortByPopularity)
+  $('.icon-track').on("click", sortByName)
 
 };
 
@@ -281,9 +280,6 @@ attachEventListeners();
 
 addTags();
 getItemsFromStorage();
-sortByName();
-sortByPopularity();
-sortByDuration();
 addUpTracks();
 totalPlaylistTime();
 calcCoolFactor();
