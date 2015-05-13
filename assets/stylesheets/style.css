@@ -49,16 +49,20 @@ button:hover {
 	text-align: center;
 }
 
-.title h1:hover span{
+.title h1:hover span i.fa {
 	display: inline-block;
 	cursor: pointer;
 }
 
-.title h1 span {
+.title h1 span i.fa {
 	display: none;
 }
 
 .title h1.search-results {
+  display: none;
+}
+
+.title .title-input {
   display: none;
 }
 
