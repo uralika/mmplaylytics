@@ -41,8 +41,6 @@ button:hover {
 
 .title {
   border-bottom: 1px solid black;
-  position: relative;
-  width: 100%;
 }
 
 .title h1 {

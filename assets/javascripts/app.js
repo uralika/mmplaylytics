@@ -101,7 +101,7 @@ function autoCompleteDisplay(results) {
 
 function autoComplete() {
   var input = $(this).val().trim();
-  if (input.length > 0 && event.keyCode != '40' && event.keyCode != '38') {
+  if (input.length > 0 && $(this).keyCode != '40' && $(this).keyCode != '38') {
     var url = "https://api.spotify.com/v1/search?q=" + input + "&type=track&limit=5&q=";
     $.ajax(url, {
       dataType: 'json',
