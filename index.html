@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Simple analytics for a custom Spotify playlist">
+	<meta name="keywords" content="Spotify, Mobile Majority, Code Challenge, JavaScript, jQuery, HTML5, CSS3, MAMP">
+	<title>MMPlaylytics</title>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/stylesheets/style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="vendor/javascripts/jquery.sortable.js"></script>
+<body>
+	<div class="play-list" id="play-list">
+		<input class="search" type="search" autocomplete="on" list="songs" name="spotifysearch" placeholder="Type song name">
+		<datalist id="songs"></datalist>
+		<button id="search" type="submit"><i class="fa fa-search"></i></button>
+		<div class="title">
+			<h1 class="search-results">Search Results</h1>
+		  <h1 class="playlist">New Playlist <span><i class="fa fa-pencil"></i></span>
+		  </h1>
+		</div>
+		<div class="icons">
+			<ul>
+				<li>
+					<div class="icon-track">
+					  <i class="fa fa-music"></i>
+					</div>
+					<div class="icon-cool">
+						<i class="fa fa-bolt"></i>
+					</div>
+					<div class="icon-clock">
+						<i class="fa fa-clock-o"></i>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="songs playlist">
+			<ol id="sortable"></ol>
+			<div class="total">
+			  <div class="total-tracks">
+			    <h3><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;<span id="total-tracks"></span></h3>
+			  </div>
+			  <div class="total-cool"></div>
+			  <div class="total-duration"></div>
+			</div>
+			<div class="tags">Tags: <span></span><input placeholder="Separate #s by commas"> 	<i  class="fa fa-tags"></i></div>
+		</div>
+		<div class="songs search-results">
+			<ol>
+			</ol>
+		</div>
+	</div>
+	<script src="assets/javascripts/app.js"></script>
+</body>
+</html>
