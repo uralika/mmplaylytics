@@ -204,31 +204,39 @@ function changePlayListName(name){
   $('h1.playlist span.playlist-name').html(name);
 };
 
-function addTags(){
+function canAddTags(){
   $('.tags').hover(function(){
     $('.tags .fa.fa-tags').css('display','inline-block');
   });
-  $('.tags i.fa.fa-tags').on('click', function(){
-    input = $('.tags input').val().trim();
-    if (input.length == 0) {
-      $('.tags span').text('');
-      $('.tags input').css('display','inline-block');
-    } else if (input.length > 0) {
-      $('.tags span').text(input);
-      $('.tags input').val('');
-      $('.tags input').css('display', 'none');
-      updateLocalStorage();
-    }
-  });
+};
+
+function addTags(){
+  input = $('.tags input').val().trim();
+  if (input.length == 0) {
+    $('.tags span').text('');
+    $('.tags input').css('display','inline-block');
+  } else if (input.length > 0) {
+    $('.tags span').text(input);
+    $('.tags input').val('');
+    $('.tags input').css('display', 'none');
+    updateLocalStorage();
+  }
 };
 
 function attachEventListeners(){
-  var $editTitleButton = $('h1.playlist .fa-pencil'),
-      $submitNewTitleButton = $('.title i.fa.fa-plus'),
-      $titleInput = $('.title .title-input'),
-      $playListTitle = $('.title h1.playlist'),
+	var $deleteBtns = $('.delete-btn'),
+      $editTitleButton = $('h1.playlist .fa-pencil'),
+      $playList = $('.playlist'),
       $playListInput = $('.title input.change-playlist-name'),
-      $deleteBtns = $('.delete-btn');
+      $playListTitle = $('.title h1.playlist'),
+      $search = $('#search'),
+      $searchInput = $('input.search'),
+      $searchResults = $('.search-results'),
+      $submitNewTitleButton = $('.title i.fa.fa-plus'),
+      $tags = $('.tags i.fa.fa-tags');
+      $titleInput = $('.title .title-input');
+
+  $deleteBtns.on('click', deleteTrack);
 
   $editTitleButton.on('click',function(){
     toggleDisplay($titleInput, $playListTitle);
@@ -245,10 +253,8 @@ function attachEventListeners(){
     }
   });
 
-  $deleteBtns.on('click', deleteTrack);
-
-  $('#search').on('click', function(ev) {
-    word = $('input.search').val().trim();
+  $search.on('click', function(ev) {
+    word = $searchInput.val().trim();
     if (word.length > 0) {  
       var url = "https://api.spotify.com/v1/search?q=" + word + "&type=track&limit=50&q=";
       $.ajax(url, {
@@ -262,14 +268,16 @@ function attachEventListeners(){
               alert('Something went wrong. Please try again.')
             }
         });
-      toggleDisplay($('.search-results'), $('.playlist'));
+      toggleDisplay($searchResults, $playList);
       toggleDisplay($('.title h1.search'), $('.title .playlist-title-box'));
     } else {
       alert('Please enter the song name!');
     }
   });
 
-  $('input.search').on('keyup', autoComplete);
+  $tags.on('click', addTags);
+
+  $searchInput.on('keyup', autoComplete);
   $('.icon-clock').on("click", sortByDuration);
   $('.icon-cool').on("click", sortByPopularity)
   $('.icon-track').on("click", sortByName)
@@ -278,8 +286,8 @@ function attachEventListeners(){
 
 attachEventListeners();
 
-addTags();
 getItemsFromStorage();
+canAddTags();
 addUpTracks();
 totalPlaylistTime();
 calcCoolFactor();
