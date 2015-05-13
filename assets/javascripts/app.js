@@ -93,8 +93,8 @@ function deleteTrack() {
 
 function autoCompleteDisplay(results) {
   results.forEach(function(result){
-    var option = document.createElement('option');
-    option.value = result['name'];
+    var option = $('<option></option>');
+    option.val(result['name']);
     $('datalist').append(option);
   });
 };
@@ -129,11 +129,11 @@ function displaySearchResults(results) {
 };
 
 function msToMinutesAndSeconds(ms) {
-  var seconds = Math.floor(ms / 1000);
-  var hours   = Math.floor(seconds / 3600);
-  var minutes = Math.floor((seconds - (hours * 3600)) / 60);
-  var seconds = seconds - (hours * 3600) - (minutes * 60);
-  var time = "";
+  var seconds = Math.floor(ms / 1000),
+      hours   = Math.floor(seconds / 3600),
+      minutes = Math.floor((seconds - (hours * 3600)) / 60),
+      seconds = seconds - (hours * 3600) - (minutes * 60),
+      time = "";
 
   if (hours != 0) {
     time = hours+":";
@@ -168,7 +168,6 @@ function sortByName() {
   });
   ol.append(li);
   updateLocalStorage();
-
 };
 
 function sortByPopularity(){
@@ -287,9 +286,9 @@ function attachEventListeners(){
 attachEventListeners();
 
 getItemsFromStorage();
+changePlayListName();
 canAddTags();
 addUpTracks();
 totalPlaylistTime();
 calcCoolFactor();
 deleteTrack();
-changePlayListName();
