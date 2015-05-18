@@ -99,9 +99,9 @@ function autoCompleteDisplay(results) {
   });
 };
 
-function autoComplete() {
-  var input = $(this).val().trim();
-  if (input.length > 0 && $(this).keyCode != '40' && $(this).keyCode != '38') {
+function autoComplete(input) {
+  var input = input.val().trim();
+  if (input.length > 0) {
     var url = "https://api.spotify.com/v1/search?q=" + input + "&type=track&limit=5&q=";
     $.ajax(url, {
       dataType: 'json',
@@ -276,7 +276,11 @@ function attachEventListeners(){
 
   $tags.on('click', addTags);
 
-  $searchInput.on('keyup', autoComplete);
+  $searchInput.on('keyup', function(event) {
+    if (event.keyCode !== 38 && event.keyCode !== 40){
+      autoComplete($searchInput);
+    }
+  });
   $('.icon-clock').on("click", sortByDuration);
   $('.icon-cool').on("click", sortByPopularity)
   $('.icon-track').on("click", sortByName)
