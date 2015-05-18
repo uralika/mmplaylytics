@@ -283,12 +283,9 @@ function attachEventListeners(){
 
 };
 
-attachEventListeners();
-
 getItemsFromStorage();
-changePlayListName();
+attachEventListeners();
 canAddTags();
 addUpTracks();
 totalPlaylistTime();
 calcCoolFactor();
-deleteTrack();
